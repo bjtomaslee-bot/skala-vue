@@ -4,6 +4,11 @@ Vue 3 수업에서 배운 문법을 단계별로 적용해 만든 날씨 애플�
 
 단순히 기온을 보여주는 데서 끝내지 않고, 사용자가 외출 전에 실제로 궁금해할 만한 내용을 보여주는 것을 목표로 했다. 현재 날씨에 따른 옷차림 추천, 비가 올 때의 우산 알림, 지역별 도시 분류, 시간대별 예보를 추가했다.
 
+## 프로젝트 링크
+
+- 배포 주소: [https://skala-vue-nine-zeta.vercel.app](https://skala-vue-nine-zeta.vercel.app)
+- GitHub 저장소: [https://github.com/bjtomaslee-bot/skala-vue](https://github.com/bjtomaslee-bot/skala-vue)
+
 ## 주요 기능
 
 - 특별시·광역시와 도 단위로 도시를 나누어 표시
