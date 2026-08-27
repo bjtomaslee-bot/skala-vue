@@ -184,16 +184,9 @@ const handleDetailJump = (id) => {
     <BaseDashboardCard>
       <h3>지역별 날씨 현황</h3>
 
-      <div class="region-tabs">
-        <button
-          v-for="region in regionGroups"
-          :key="region"
-          :class="{ active: selectedRegion === region }"
-          @click="selectedRegion = region"
-        >
-          {{ region }}
-        </button>
-      </div>
+      <el-tabs v-model="selectedRegion" type="card" class="region-tabs">
+        <el-tab-pane v-for="region in regionGroups" :key="region" :label="region" :name="region" />
+      </el-tabs>
 
       <p v-if="isLoading" class="loading-message">실시간 날씨를 불러오는 중입니다.</p>
 
@@ -239,28 +232,14 @@ const handleDetailJump = (id) => {
 }
 
 .region-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  width: 100%;
+  min-width: 0;
   margin-bottom: 18px;
+  overflow: hidden;
 }
 
-.region-tabs button {
-  padding: 8px 12px;
-  color: #455a64;
-  background-color: #eceff1;
-  border: 1px solid #cfd8dc;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.region-tabs button:hover {
-  background-color: #dceaf5;
-}
-
-.region-tabs button.active {
-  color: white;
-  background-color: #1565c0;
-  border-color: #1565c0;
+:deep(.region-tabs .el-tabs__header) {
+  max-width: 100%;
+  margin-bottom: 16px;
 }
 </style>

@@ -127,7 +127,7 @@ const displayTemp = computed(() => {
 
     <WeatherForecast v-if="cityData" :city-query="cityData.query" />
 
-    <button class="back-button" @click="router.push('/')">← 메인 대시보드로 돌아가기</button>
+    <el-button type="primary" @click="router.push('/')">← 메인 대시보드로 돌아가기</el-button>
   </div>
 </template>
 
@@ -186,19 +186,5 @@ const displayTemp = computed(() => {
   color: #c0392b;
   background-color: #fdecea;
   border-radius: 8px;
-}
-
-.back-button {
-  padding: 10px 16px;
-  color: #ffffff;
-  background-color: #2c3e50;
-  border: 0;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.back-button:hover {
-  background-color: #1f2d3a;
 }
 </style>

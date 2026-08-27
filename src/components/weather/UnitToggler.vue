@@ -13,7 +13,7 @@ const configStore = useConfigStore()
       </strong>
     </span>
 
-    <button class="toggle-button" @click="configStore.toggleUnit">단위변경</button>
+    <el-button type="primary" @click="configStore.toggleUnit">단위변경</el-button>
   </div>
 </template>
 
@@ -28,19 +28,5 @@ const configStore = useConfigStore()
 
 .unit-toggler strong {
   color: #1565c0;
-}
-
-.toggle-button {
-  padding: 7px 11px;
-  color: white;
-  background-color: #4b6584;
-  border: 0;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.toggle-button:hover {
-  background-color: #34495e;
 }
 </style>

@@ -32,7 +32,7 @@ const handleCardClick = () => {
 </script>
 
 <template>
-  <div class="weather-card" @click="handleCardClick">
+  <el-card class="weather-card" shadow="hover" @click="handleCardClick">
     <div class="card-heading">
       <h3>{{ cityItem.name }}</h3>
       <span>{{ cityItem.status }}</span>
@@ -40,36 +40,26 @@ const handleCardClick = () => {
 
     <p class="temperature">{{ displayTemp }}{{ configStore.unitSymbol }}</p>
 
-    <span v-if="cityItem.temp >= 28" class="badge hot">🔥 더움</span>
-    <span v-else-if="cityItem.temp >= 20" class="badge mild">🙂 적당함</span>
-    <span v-else class="badge cool">🧥 쌀쌀함</span>
+    <el-tag v-if="cityItem.temp >= 28" type="danger">🔥 더움</el-tag>
+    <el-tag v-else-if="cityItem.temp >= 20" type="success">🙂 적당함</el-tag>
+    <el-tag v-else type="info">🧥 쌀쌀함</el-tag>
 
     <p>추천 복장: {{ cityItem.outfit }}</p>
     <p v-if="cityItem.umbrella" class="umbrella-needed">☔ 우산을 챙기세요.</p>
-    <p v-else class="umbrella-not-needed">☀️ 우산은 필요하지 않습니다.</p>
+    <p v-else class="umbrella-not-needed">우산은 필요하지 않습니다.</p>
 
-    <button
-      class="btn-detail"
-      @click.stop="emit('click-detail', cityItem.name, cityItem.status)"
-    >
-      상세보기
-    </button>
-  </div>
+    <div class="card-actions">
+      <el-button type="primary" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">
+        상세보기
+      </el-button>
+    </div>
+  </el-card>
 </template>
 
 <style scoped>
 .weather-card {
-  background: #fff;
-  border: 1px solid #dee2e6;
-  padding: 18px;
   margin-bottom: 14px;
-  border-radius: 10px;
   cursor: pointer;
-  position: relative;
-}
-
-.weather-card:hover {
-  border-color: #42a5f5;
 }
 
 .card-heading {
@@ -88,26 +78,6 @@ const handleCardClick = () => {
   font-weight: bold;
 }
 
-.badge {
-  display: inline-block;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 4px;
-  color: #fff;
-}
-
-.hot {
-  background-color: #ef5350;
-}
-
-.mild {
-  background-color: #43a047;
-}
-
-.cool {
-  background-color: #42a5f5;
-}
-
 .umbrella-needed {
   color: #1565c0;
   font-weight: bold;
@@ -117,15 +87,9 @@ const handleCardClick = () => {
   color: #2e7d32;
 }
 
-.btn-detail {
-  position: absolute;
-  right: 18px;
-  bottom: 18px;
-  padding: 9px 14px;
-  color: white;
-  background-color: #1565c0;
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
 }
 </style>

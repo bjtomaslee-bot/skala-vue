@@ -97,28 +97,40 @@ onMounted(() => {
 <template>
   <section class="forecast-container">
     <h3>앞으로 24시간 예보</h3>
+    <el-alert
+      v-if="isLoading"
+      title="시간별 예보를 불러오는 중입니다."
+      type="info"
+      :closable="false"
+    />
 
-    <p v-if="isLoading" class="loading-message">시간별 예보를 불러오는 중입니다.</p>
-
-    <p v-else-if="apiError" class="error-message">
-      {{ apiError }}
-    </p>
+    <el-alert v-else-if="apiError" :title="apiError" type="error" :closable="false" show-icon />
 
     <div v-else>
-      <p v-if="firstRainTime" class="rain-alert">
-        ☔ {{ formatDateTime(firstRainTime) }}부터 비 또는 눈이 예상됩니다.
-      </p>
+      <el-alert
+        v-if="firstRainTime"
+        :title="formatDateTime(firstRainTime) + '부터 비 또는 눈이 예상됩니다.'"
+        type="warning"
+        :closable="false"
+        show-icon
+        class="forecast-alert"
+      />
 
-      <p v-else class="clear-alert">☀️ 앞으로 24시간 동안 비 또는 눈 예보가 없습니다.</p>
+      <el-alert
+        v-else
+        title="앞으로 24시간 동안 비 또는 눈 예보가 없습니다."
+        type="success"
+        :closable="false"
+        show-icon
+        class="forecast-alert"
+      />
 
       <div class="forecast-list">
         <div v-for="item in forecastList" :key="item.id" class="forecast-item">
           <strong>{{ formatDateTime(item.dateTime) }}</strong>
-
-          <span>{{ displayTemp(item.temp) }}{{ configStore.unitSymbol }}</span>
+          <span> {{ displayTemp(item.temp) }}{{ configStore.unitSymbol }} </span>
 
           <span>{{ item.status }}</span>
-
           <span v-if="item.umbrella">☔</span>
           <span v-else>☀️</span>
         </div>
@@ -157,29 +169,7 @@ onMounted(() => {
   border-radius: 6px;
 }
 
-.rain-alert {
-  padding: 12px;
-  color: #0d47a1;
-  background-color: #e3f2fd;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
-.clear-alert {
-  padding: 12px;
-  color: #2e7d32;
-  background-color: #e8f5e9;
-  border-radius: 6px;
-  font-weight: bold;
-}
-
-.loading-message {
-  color: #1565c0;
-  text-align: center;
-}
-
-.error-message {
-  color: #c62828;
-  text-align: center;
+.forecast-alert {
+  margin-bottom: 14px;
 }
 </style>

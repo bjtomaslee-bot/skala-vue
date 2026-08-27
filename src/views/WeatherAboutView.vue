@@ -36,7 +36,9 @@ const handleGoHome = () => {
       </ul>
     </div>
 
-    <button class="home-button" @click="handleGoHome">← 메인 대시보드로 돌아가기</button>
+    <el-button type="primary" class="home-button" @click="handleGoHome">
+      ← 메인 대시보드로 돌아가기
+    </el-button>
   </div>
 </template>
 
@@ -99,16 +101,6 @@ code {
 
 .home-button {
   width: 100%;
-  padding: 11px 16px;
-  color: #ffffff;
-  background-color: #3498db;
-  border: 0;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
 }
 
-.home-button:hover {
-  background-color: #2980b9;
-}
 </style>

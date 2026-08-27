@@ -20,8 +20,8 @@ defineProps({
   },
 })
 
-const handleInput = (event) => {
-  emit('update-query', event.target.value)
+const handleInput = (value) => {
+  emit('update-query', value)
 }
 
 const handleKeyDown = (event) => {
@@ -36,37 +36,35 @@ const handleKeyUp = (event) => {
   console.log(`[keyup] 현재 입력값: ${event.target.value}`)
 }
 
-const handleUmbrellaChange = (event) => {
-  emit('update-umbrella-only', event.target.checked)
+const handleUmbrellaChange = (value) => {
+  emit('update-umbrella-only', value)
 }
 </script>
 
 <template>
   <div class="search-inner">
-    <h3>🔍 도시 검색</h3>
+    <h3>도시 검색</h3>
     <div class="search-row">
-      <input
+      <el-input
+        :model-value="currentQuery"
+        placeholder="검색할 도시 이름 입력"
+        clearable
         type="text"
-        :value="currentQuery"
         @input="handleInput"
+        @clear="emit('update-query', '')"
         @keydown="handleKeyDown"
         @keypress="handleKeyPress"
         @keyup="handleKeyUp"
-        placeholder="검색할 도시 이름 입력"
       />
-      <button @click="emit('update-query', '')">입력 지우기</button>
+      <el-button type="primary" @click="emit('update-query', '')">입력 지우기</el-button>
     </div>
     <p>
       검색 중인 도시: <strong>{{ currentQuery }}</strong>
     </p>
-    <label class="umbrella-filter">
-      <input
-        type="checkbox"
-        :checked="showUmbrellaOnly"
-        @change="handleUmbrellaChange"
-      />
+
+    <el-checkbox :model-value="showUmbrellaOnly" @change="handleUmbrellaChange">
       우산이 필요한 도시만 보기
-    </label>
+    </el-checkbox>
     <p>우산이 필요한 도시는 총 {{ umbrellaCityCount }}곳입니다.</p>
     <p class="filter-state">현재 설정: {{ umbrellaFilterLabel }}</p>
   </div>
@@ -79,36 +77,12 @@ const handleUmbrellaChange = (event) => {
 
 .search-row {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.search-row input {
+.search-row .el-input {
   flex: 1;
-  min-width: 0;
-  padding: 10px;
-  border: 1px solid #b0bec5;
-  border-radius: 6px;
-}
-
-.search-row button {
-  padding: 9px 14px;
-  color: white;
-  background-color: #607d8b;
-  border: 0;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.umbrella-filter {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  margin-top: 14px;
-}
-
-.umbrella-filter input {
-  width: auto;
-  margin: 0;
 }
 
 .filter-state {

@@ -10,7 +10,7 @@ const handleGoHome = () => {
 
 <template>
   <div class="not-found-container">
-    <div class="not-found-container">
+    <div class="not-found-content">
       <div class="error-code">404</div>
       <h2>페이지를 찾을수 없습니다.</h2>
 
@@ -19,7 +19,9 @@ const handleGoHome = () => {
         아직 만들어지지 않은 페이지입니다.
       </p>
 
-      <button class="home-button" @click="handleGoHome">메인으로 돌아가기</button>
+      <el-button type="primary" size="large" round @click="handleGoHome"
+        >메인으로 돌아가기</el-button
+      >
     </div>
   </div>
 </template>
@@ -28,7 +30,7 @@ const handleGoHome = () => {
 .not-found-container {
   display: flex;
   align-items: center;
-  justify-content: unset;
+  justify-content: center;
   min-height: 500px;
   padding: 30px;
   background-color: #f8f9fa;
@@ -52,11 +54,6 @@ const handleGoHome = () => {
   font-weight: bold;
 }
 
-.error-icon {
-  margin: 8px 0 20px;
-  font-size: 480x;
-}
-
 h2 {
   color: #343a40;
 }
@@ -65,19 +62,5 @@ p {
   margin: 18px 0 30px;
   color: #6c757d;
   line-height: 1.7;
-}
-
-.home-button {
-  padding: 11px 24px;
-  color: white;
-  background-color: #3498db;
-  border: 0;
-  border-radius: 22px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.home-button:hover {
-  background-color: #2980b9;
 }
 </style>
