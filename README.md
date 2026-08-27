@@ -9,7 +9,7 @@ Vue 3 교재의 Hands on 실습을 순서대로 적용한 날씨 애플리케이
 - 실습 3 Weather Component: `src/submissions/03-weather-component/`
 - 실습 4 이후 누적 앱: `src/App.vue`, `src/router/`, `src/views/`, `src/components/weather/`
 - 실습 5 Weather Store: `src/stores/configStore.js`
-- 실습 6 Weather Axios: 메인 날씨 화면에 OpenWeather API 적용, 상세 화면 적용 예정
+- 실습 6 Weather Axios: 메인 및 상세 날씨 화면에 OpenWeather API 적용
 
 중간 코드챌린지는 `src/components/practices/`, Vue 기본 생성 예제는 `src/archive/vue-starter/`에 분리되어 있습니다.
 

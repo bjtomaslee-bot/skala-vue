@@ -1,5 +1,6 @@
 export const mockDetails = {
   city_01: {
+    query: 'Seoul,KR',
     name: '서울특별시',
     temp: 29,
     status: '맑음',
@@ -9,6 +10,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_02: {
+    query: 'Suwon,KR',
     name: '경기도 수원시',
     temp: 23,
     status: '흐림',
@@ -18,6 +20,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_03: {
+    query: 'Jeju City,KR',
     name: '제주특별자치도',
     temp: 18,
     status: '비',
@@ -27,6 +30,7 @@ export const mockDetails = {
     umbrella: true,
   },
   city_04: {
+    query: 'Gangneung,KR',
     name: '강원특별자치도 강릉시',
     temp: 26,
     status: '구름',
@@ -36,6 +40,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_05: {
+    query: 'Incheon,KR',
     name: '인천광역시',
     temp: 21,
     status: '강풍',
@@ -45,6 +50,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_06: {
+    query: 'Daejeon,KR',
     name: '대전광역시',
     temp: 27,
     status: '구름',
@@ -54,6 +60,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_07: {
+    query: 'Daegu,KR',
     name: '대구광역시',
     temp: 31,
     status: '맑음',
@@ -63,6 +70,7 @@ export const mockDetails = {
     umbrella: false,
   },
   city_08: {
+    query: 'Gwangju,KR',
     name: '광주광역시',
     temp: 19,
     status: '소나기',
@@ -72,6 +80,7 @@ export const mockDetails = {
     umbrella: true,
   },
   city_09: {
+    query: 'Chuncheon,KR',
     name: '강원특별자치도 춘천시',
     temp: 16,
     status: '비',
@@ -81,6 +90,7 @@ export const mockDetails = {
     umbrella: true,
   },
   city_10: {
+    query: 'Ulsan,KR',
     name: '울산광역시',
     temp: 25,
     status: '흐림',

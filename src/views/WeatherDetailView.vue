@@ -1,14 +1,86 @@
 <script setup>
+import axios from 'axios'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '@/stores/configStore.js'
-import { mockDetails } from '../data/weatherData.js'
+import { weatherData } from '../data/weatherData.js'
 
 const route = useRoute()
 const router = useRouter()
 const configStore = useConfigStore()
 
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY
+const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
+
 const cityData = ref(null)
+const isLoading = ref(false)
+const apiError = ref('')
+
+const getOutfit = (temp) => {
+  if (temp >= 28) {
+    return '통풍이 잘되는 반팔과 얇은 바지'
+  } else if (temp >= 20) {
+    return '얇은 긴팔 또는 가벼운 겉옷'
+  } else {
+    return '재킷이나 따뜻한 겉옷'
+  }
+}
+
+onMounted(async () => {
+  const cityId = route.params.cityId
+
+  const selectedCity = weatherData.find((city) => {
+    return city.id === cityId
+  })
+
+  if (!selectedCity) {
+    apiError.value = '해당 도시 정보를 찾을 수 없습니다.'
+    return
+  }
+
+  isLoading.value = true
+
+  try {
+    const response = await axios.get(BASE_URL, {
+      params: {
+        q: selectedCity.query,
+        appid: API_KEY,
+        units: 'metric',
+        lang: 'kr',
+      },
+    })
+
+    const apiData = response.data
+    const currentTemp = Math.round(apiData.main.temp)
+    const weatherType = apiData.weather[0].main
+
+    const umbrellaNeeded =
+      weatherType === 'Rain' ||
+      weatherType === 'Drizzle' ||
+      weatherType === 'Thunderstorm' ||
+      weatherType === 'Snow'
+
+    cityData.value = {
+      id: selectedCity.id,
+      name: selectedCity.name,
+      temp: currentTemp,
+      status: apiData.weather[0].description,
+      humidity: `${apiData.main.humidity}%`,
+      wind: `${apiData.wind.speed}m/s`,
+      outfit: getOutfit(currentTemp),
+      umbrella: umbrellaNeeded,
+    }
+
+    console.log('상세 날씨 API 결과:', cityData.value)
+  } catch (error) {
+    apiError.value = '상세 날씨 정보를 불러오지 못했습니다.'
+
+    console.error('상태 코드:', error.response?.status)
+    console.error('오류 내용:', error.response?.data)
+  } finally {
+    isLoading.value = false
+  }
+})
 
 const displayTemp = computed(() => {
   if (!cityData.value) {
@@ -22,14 +94,6 @@ const displayTemp = computed(() => {
   }
 
   return rawTemp
-})
-
-onMounted(() => {
-  const cityId = route.params.cityId
-
-  if (mockDetails[cityId]) {
-    cityData.value = mockDetails[cityId]
-  }
 })
 </script>
 

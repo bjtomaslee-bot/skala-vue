@@ -22,19 +22,6 @@ const weatherList = ref(weatherData)
 const isLoading = ref(false)
 const apiError = ref('')
 
-const cityQueries = {
-  city_01: 'Seoul,KR',
-  city_02: 'Suwon,KR',
-  city_03: 'Jeju City,KR',
-  city_04: 'Gangneung,KR',
-  city_05: 'Incheon,KR',
-  city_06: 'Daejeon,KR',
-  city_07: 'Daegu,KR',
-  city_08: 'Gwangju,KR',
-  city_09: 'Chuncheon,KR',
-  city_10: 'Ulsan,KR',
-}
-
 const getOutfit = (temp) => {
   if (temp >= 28) {
     return '통풍이 잘되는 반팔과 얇은 바지'
@@ -57,7 +44,7 @@ const fetchRealTimeWeather = async () => {
 
       const response = await axios.get(BASE_URL, {
         params: {
-          q: cityQueries[city.id],
+          q: city.query,
           appid: API_KEY,
           units: 'metric',
           lang: 'kr',
