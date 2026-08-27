@@ -14,11 +14,23 @@ const configStore = useConfigStore()
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('날씨 카드를 선택해 주세요.')
+const regionGroups = [
+  '특별시·광역시',
+  '경기도',
+  '강원특별자치도',
+  '제주특별자치도',
+  '경상북도',
+  '경상남도',
+  '전라북도',
+  '전라남도',
+]
+
+const selectedRegion = ref('특별시·광역시')
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather'
 
-const weatherList = ref(weatherData)
+const weatherList = ref([])
 const isLoading = ref(false)
 const apiError = ref('')
 
@@ -63,6 +75,7 @@ const fetchRealTimeWeather = async () => {
 
       updateWeatherList.push({
         id: city.id,
+        group: city.group,
         name: city.name,
         temp: currentTemp,
         status: apiData.weather[0].description,
@@ -77,7 +90,7 @@ const fetchRealTimeWeather = async () => {
 
     console.log('실시간 날씨 적용 완료: ', updateWeatherList)
   } catch (error) {
-    apiError.value = '실시간 날씨를 불러오지 못해 기존 데이터를 표시합니다.'
+    apiError.value = '날씨 정보를 불러오지 못했습니다.'
 
     console.log('상태 코드:', error.response?.status)
     console.log('오류 내용: ', error.response?.data)
@@ -121,6 +134,18 @@ const visibleWeatherList = computed(() => {
   return filteredWeatherList.value
 })
 
+const groupedWeatherList = computed(() => {
+  const query = searchQuery.value.trim()
+
+  if (query) {
+    return visibleWeatherList.value
+  }
+
+  return visibleWeatherList.value.filter((item) => {
+    return item.group === selectedRegion.value
+  })
+})
+
 const umbrellaCityCount = computed(() => {
   return weatherList.value.filter((item) => item.umbrella).length
 })
@@ -159,18 +184,29 @@ const handleDetailJump = (id) => {
     <BaseDashboardCard>
       <h3>지역별 날씨 현황</h3>
 
+      <div class="region-tabs">
+        <button
+          v-for="region in regionGroups"
+          :key="region"
+          :class="{ active: selectedRegion === region }"
+          @click="selectedRegion = region"
+        >
+          {{ region }}
+        </button>
+      </div>
+
       <p v-if="isLoading" class="loading-message">실시간 날씨를 불러오는 중입니다.</p>
 
       <p v-if="apiError" class="api-error">{{ apiError }}</p>
       <WeatherCard
-        v-for="item in visibleWeatherList"
+        v-for="item in groupedWeatherList"
         :key="item.id"
         :city-item="item"
         @select-card="(message) => (selectedCityInfo = message)"
         @click-detail="handleDetailJump(item.id)"
       />
 
-      <p v-if="visibleWeatherList.length === 0" class="no-result">
+      <p v-if="groupedWeatherList.length === 0" class="no-result">
         검색 결과와 일치하는 도시가 없습니다.
       </p>
     </BaseDashboardCard>
@@ -200,5 +236,31 @@ const handleDetailJump = (id) => {
   border-radius: 6px;
   text-align: center;
   font-weight: bold;
+}
+
+.region-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.region-tabs button {
+  padding: 8px 12px;
+  color: #455a64;
+  background-color: #eceff1;
+  border: 1px solid #cfd8dc;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.region-tabs button:hover {
+  background-color: #dceaf5;
+}
+
+.region-tabs button.active {
+  color: white;
+  background-color: #1565c0;
+  border-color: #1565c0;
 }
 </style>
