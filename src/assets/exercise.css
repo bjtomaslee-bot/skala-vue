@@ -1,0 +1,42 @@
+.app-container {
+  max-width: 900px;
+  margin: 40px 10px;
+  padding: 30px 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family:
+    'Pretendard',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    sans-serif;
+  color: #2c3e50;
+}
+
+.app-container h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-container hr {
+  border: none;
+  border-top: 2px solid #e9ecef;
+  margin-bottom: 24px;
+}
+
+.status-bar {
+  background: #e8f5e9;
+  padding: 10px;
+  text-align: center;
+  color: #2e7d32;
+  font-weight: bold;
+  border-radius: 6px;
+}
