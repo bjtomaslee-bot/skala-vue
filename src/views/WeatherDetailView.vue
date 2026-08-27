@@ -4,6 +4,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '@/stores/configStore.js'
 import { weatherData } from '../data/weatherData.js'
+import WeatherForecast from '@/components/weather/WeatherForecast.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -62,6 +63,7 @@ onMounted(async () => {
 
     cityData.value = {
       id: selectedCity.id,
+      query: selectedCity.query,
       name: selectedCity.name,
       temp: currentTemp,
       status: apiData.weather[0].description,
@@ -122,6 +124,8 @@ const displayTemp = computed(() => {
     <div v-else class="not-found">
       <p>해당 지역의 데이터가 존재하지 않습니다.</p>
     </div>
+
+    <WeatherForecast v-if="cityData" :city-query="cityData.query" />
 
     <button class="back-button" @click="router.push('/')">← 메인 대시보드로 돌아가기</button>
   </div>
